@@ -7,6 +7,8 @@
 """
 import os
 
+_libs=None
+
 def get_libraries():
     """
     Returns a list of libraries
@@ -28,8 +30,11 @@ def find_library(name, libs=None):
     Don't really care if this operation is expensive:
     it shouldn't be performed all that often anyways.
     """
+    global _libs
     if libs is None:
-        libs=get_libraries()
+        if _libs is None:
+            _libs=get_libraries()
+        libs=_libs
         
     for entry in libs:
         if entry.find(name)!=-1:
