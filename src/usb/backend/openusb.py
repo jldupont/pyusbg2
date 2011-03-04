@@ -29,8 +29,11 @@
 from ctypes import *
 import ctypes.util
 import usb.util
+from usb.util import ENDPOINT_OUT   ##fixed jld
 from usb._debug import methodtrace
 import logging
+import usb.backend  ## fixed jld
+import array        ## fixed jld
 
 __author__ = 'Wander Lairson Costa'
 
@@ -391,7 +394,7 @@ class _Context(object):
 
 class _BusIterator(object):
     def __init__(self):
-        self.buslist = POINTER(openusb_busid)()
+        self.buslist = POINTER(_openusb_busid)()  ## fixed jld
         num_busids = c_uint32()
         _check(_lib.openusb_get_busid_list(_ctx.handle,
                                            byref(self.buslist),

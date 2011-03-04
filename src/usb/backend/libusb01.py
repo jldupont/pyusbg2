@@ -37,6 +37,7 @@ from usb._debug import methodtrace
 import usb._interop as _interop
 import logging
 
+### modifications by Jean-Lou Dupont
 __author__ = 'Wander Lairson Costa'
 
 __all__ = ['get_backend']
@@ -393,7 +394,7 @@ class _LibUSB(usb.backend.IBackend):
     def get_interface_descriptor(self, dev, intf, alt, config):
         cfgdesc = self.get_configuration_descriptor(dev, config)
         if intf >= cfgdesc.bNumInterfaces:
-            raise IndexError('Invalid interface index ' + str(interface))
+            raise IndexError('Invalid interface index ' + str(intf))  ## fixed jld
         interface = cfgdesc.interface[intf]
         if alt >= interface.num_altsetting:
             raise IndexError('Invalid alternate setting index ' + str(alt))

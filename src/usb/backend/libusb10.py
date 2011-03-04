@@ -33,6 +33,7 @@ import sys
 import logging
 from usb._debug import methodtrace
 import usb._interop as _interop
+import usb.backend  ## fixed jld
 
 __author__ = 'Wander Lairson Costa'
 
