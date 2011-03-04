@@ -36,6 +36,7 @@ from usb.core import USBError
 from usb._debug import methodtrace
 import usb._interop as _interop
 import logging
+import usb.backend.helper
 
 ### modifications by Jean-Lou Dupont
 __author__ = 'Wander Lairson Costa'
@@ -169,6 +170,13 @@ def _load_library():
     for candidate in candidates:
         libname = ctypes.util.find_library(candidate)
         if libname is not None: break
+        
+        ### jld
+        libpath = usb.backend.helper.find_library(candidate)
+        if libpath is not None:
+            libname=usb.backend.helper.extract_library_name(libpath)
+            break
+        
     else:
         # corner cases
         # cygwin predefines library names with 'cyg' instead of 'lib'

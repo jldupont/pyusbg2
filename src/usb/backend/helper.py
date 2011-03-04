@@ -11,7 +11,7 @@ _libs=None
 
 def get_libraries():
     """
-    Returns a list of libraries
+    Returns a list of library paths
     
     Uses 'ldconfig' to retrieve them all
     """
@@ -41,7 +41,18 @@ def find_library(name, libs=None):
             return entry
     return None
     
+def extract_library_name(path):
+    """
+    Extracts the name part of the library
+    """
+    bits=path.split(os.path.sep)
+    return bits[-1]
+
     
 if __name__=="__main__":
     print find_library("libusb-1.0")
     print find_library("libusb-0.1")
+
+    libusb_path=find_library("libusb-1.0")
+    print extract_library_name(libusb_path)
+    

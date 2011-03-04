@@ -146,9 +146,14 @@ _lib = None
 _ctx = None
 
 def _load_library():
-    libname = ctypes.util.find_library('openusb')
-    if libname is None:
-        raise OSError('USB library could not be found')
+    ### jld
+    libpath = usb.backend.helper.find_library('openusb')
+    if libpath is not None:
+        libname=usb.backend.helper.extract_library_name(libpath)
+    else:    
+        libname = ctypes.util.find_library('openusb')
+        if libname is None:
+            raise OSError('USB library could not be found')
     return CDLL(libname)
 
 def _setup_prototypes(lib):
